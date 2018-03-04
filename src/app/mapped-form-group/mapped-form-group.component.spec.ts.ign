@@ -1,0 +1,27 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { MappedFormGroupComponent } from './mapped-form-group.component';
+import { MappedFormArrayComponent } from '../mapped-form-array/mapped-form-array.component';
+import { MappedFormControlComponent } from '../mapped-form-control/mapped-form-control.component';
+
+describe('MappedFormGroupComponent', () => {
+  let component: MappedFormGroupComponent;
+  let fixture: ComponentFixture<MappedFormGroupComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ MappedFormGroupComponent, MappedFormArrayComponent, MappedFormControlComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MappedFormGroupComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

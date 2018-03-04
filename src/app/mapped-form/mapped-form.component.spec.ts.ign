@@ -1,0 +1,32 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, OnInit, Input } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { MappedFormComponent } from './mapped-form.component';
+import { MappedFormGroupComponent } from '../mapped-form-group/mapped-form-group.component';
+
+import { KeysPipe } from '../keys.pipe';
+
+describe('MappedFormComponent', () => {
+  let component: MappedFormComponent;
+  let fixture: ComponentFixture<MappedFormComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ MappedFormComponent, MappedFormGroupComponent, KeysPipe ],
+      imports: [ BrowserModule, FormsModule, ReactiveFormsModule ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MappedFormComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

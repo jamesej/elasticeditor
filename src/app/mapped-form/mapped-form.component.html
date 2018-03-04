@@ -1,0 +1,6 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="form" class="mapped-form">
+  <app-mapped-form-group [form]="form"></app-mapped-form-group>
+  <div class="form-row">
+      <button type="submit" [disabled]="!form.valid">Save</button>
+    </div>
+</form>

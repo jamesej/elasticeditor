@@ -1,0 +1,10 @@
+<div *ngIf="title" class="mf-title">{{title}}</div>
+<fieldset [formGroup]="form">
+  <div class="mf-element" *ngFor="let key of form.controls | keys">
+    <ng-container [ngSwitch]="form.get(key).schema.type">
+      <app-mapped-form-group *ngSwitchCase="'object'" [form]="form.get(key)"></app-mapped-form-group>
+      <app-mapped-form-array *ngSwitchCase="'array'" [form]="form.get(key)"></app-mapped-form-array>
+      <app-mapped-form-control *ngSwitchDefault [form]="form" [key]="key"></app-mapped-form-control>
+    </ng-container>
+  </div>
+</fieldset>

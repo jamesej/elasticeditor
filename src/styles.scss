@@ -1,0 +1,46 @@
+/* You can add global styles to this file, and also import other style files */
+form.mapped-form {
+    max-width: 600px;
+
+    fieldset {
+        margin-left: 25px;
+        border-left: 2px solid #ddd;
+        padding: 12px 0px 3px 13px;
+        
+        .mf-element {
+            position: relative;
+
+            .mf-array-buttons {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                cursor: pointer;
+
+                .mf-control-button {
+                    float: right;
+                    margin-right: 8px;
+                    margin-top: 4px;
+                }
+            }
+
+            .mf-add-button {
+                margin-left: 31px;
+                background-color: #eee;
+                padding: 5px 7px 4px 7px;
+                border-radius: 15px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.mf-array > .mf-element {
+    margin-left: 20px;
+}
+
+.mf-title {
+    margin: 5px 0;
+    font-size: 1.2rem;
+    background-color: #eee;
+    padding: 0 5px 5px 8px;
+}

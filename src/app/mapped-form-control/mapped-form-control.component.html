@@ -1,0 +1,39 @@
+<div class="form-group row" [formGroup]="form">
+    <label [attr.for]="control.path" class="col-sm-2 col-form-label">{{title}}</label>
+   
+    <div class="col-sm-10" [ngSwitch]="controlType" [id]="control.id">
+   
+      <input *ngSwitchCase="'string'" [ngClass]="'form-control ' + classes"
+        [formControlName]="key" [id]="control.path" type="text">
+      <div *ngSwitchCase="'boolean'" class="form-check">
+        <input [ngClass]="'form-check-input ' + classes"
+          [formControlName]="key" [id]="control.path" type="checkbox">
+      </div>
+      <input *ngSwitchCase="'number'" [ngClass]="'form-control ' + classes"
+        [formControlName]="key" [id]="control.path" type="number">
+      <input *ngSwitchCase="'date-time'" [ngClass]="'form-control ' + classes"
+        [formControlName]="key" [id]="control.path" type="datetime-local">
+      <input *ngSwitchCase="'date'" [ngClass]="'form-control ' + classes"
+        [formControlName]="key" [id]="control.path" type="date">
+      <input *ngSwitchCase="'email'" [ngClass]="'form-control ' + classes"
+        [formControlName]="key" [id]="control.path" type="email">
+      <select *ngSwitchCase="'enum'" [ngClass]="'form-control fixed-enum ' + classes"
+        [formControlName]="key" [id]="control.path">
+        <option *ngFor="let val of schema.enum" [value]="val">{{val}}</option>
+      </select>
+      <div *ngIf="showInvalid" class="text-danger">
+        <div *ngIf="control.errors.required">
+          Please enter a value.
+        </div>
+        <div *ngIf="control.errors.maxLength">
+          Please ensure the length is no more than {{control.errors.maxLength.requiredLength}} characters
+        </div>
+        <div *ngIf="control.errors.minLength">
+          Please ensure the length is no less than {{control.errors.minLength.requiredLength}} characters
+        </div>
+        <div *ngIf="control.errors.email">
+          Please enter a valid email address
+        </div>
+      </div>
+    </div>
+  </div>
