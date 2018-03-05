@@ -30,7 +30,8 @@ export class SchemaForm {
 
     schemaHasConditional(schema: object) {
         return (schema['if'] && (schema['then'] || schema['else']))
-            || (schema['anyOf']);
+            || (schema['anyOf'])
+            || (schema['allOf']);
     }
 
     applyConditional(schema: object, val: object): object {
@@ -64,6 +65,16 @@ export class SchemaForm {
             if (disjunction === null)
                 throw "Current state of form illegal, no condition in anyOf is true";
             result = new Schema(result || schema).conjoin(disjunction);
+        }
+        if (schema['allOf']) {
+            let conjunction = {};
+            for (let subSchema of <object[]>schema['allOf']) {
+                let apply = this.applyConditional(subSchema, val) || subSchema;
+                conjunction = new Schema(conjunction).conjoin(apply);
+            }
+            if (conjunction === null)
+                throw "Current state of form illegal, a condition in allOf is not true";
+            result = new Schema(result || schema).conjoin(conjunction);
         }
 
         return result;

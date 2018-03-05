@@ -11,6 +11,65 @@ export class AppComponent {
   title = 'app';
 
   schema: object = {
+    title: "Test Conditional",
+    type: "object",
+    properties: {
+      switch1: {
+        type: "boolean"
+      },
+      switch2: {
+        type: "string",
+        enum: ["propA", "propB"]
+      }
+    },
+    allOf: [{
+      if: {
+        type: 'object',
+        properties: {
+          switch1: {
+            type: "boolean",
+            const: true
+          }
+        }
+      },
+      then: {
+        type: 'object',
+        properties: {
+          depProp: {
+            type: "string"
+          }
+        }
+      }
+    },{
+      if: {
+        type: 'object',
+        properties: {
+          switch2: {
+            type: 'string',
+            const: 'propA'
+          }
+        }
+      },
+      then: {
+        type: 'object',
+        properties: {
+          propA: {
+            type: 'string'
+          }
+        }
+      },
+      else: {
+        type: 'object',
+        properties: {
+          propB: {
+            type: 'string',
+            format: 'date'
+          }
+        }
+      }
+    }]
+  };
+  schema2: object = {
     title: "Contact Details",
     type: "object",
     required: ['personTitle', 'firstName', 'surname'],

@@ -52,6 +52,9 @@ export class Schema {
         for (let prop in schema1) {
             switch (prop) {
                 case 'properties':
+                    if (!schema['properties']) {
+                        schema['properties'] = {};
+                    }
                     for (let p in schema1['properties']) {
                         let res = this.conjoinFunc(schema['properties'][p], schema1['properties'][p]);
                         if (res === null) {
@@ -66,19 +69,41 @@ export class Schema {
                     break;
                 case 'type':
                 case 'enum':
-                    let val = schema1[prop];
+                case 'const':
+                    let val1 = schema1[prop];
+                    let val = schema[prop];
+                    if (!val) {
+                        if (prop == 'enum' && schema['const']) {
+                            val = schema['const'];
+                        } else if (prop == 'const' && schema['enum']) {
+                            val = schema['enum'];
+                        } else {
+                            schema[prop] = schema1[prop];
+                            break;
+                        }
+                    }
+                    if (!Array.isArray(val1)) {
+                        val1 = [val1];
+                    }
                     if (!Array.isArray(val)) {
                         val = [val];
                     }
-                    if (!Array.isArray(schema[prop])) {
-                        schema[prop] = [schema[prop]];
-                    }
-                    schema[prop] = Schema.intersection<string>(<string[]>val, <string[]>schema[prop]);
+                    schema[prop] = Schema.intersection<string>(<string[]>val1, <string[]>val);
                     if (schema[prop] == []) {
                         return null;
                     }
                     if (prop == 'type' && schema['type'].length == 1) {
                         schema['type'] = schema['type'][0];
+                    } else if (prop == 'enum' && schema['enum'].length == 1) {
+                        schema['const'] = schema['enum'][0];
+                        delete schema['enum'];
+                    } else if (prop == 'const') {
+                        if (schema['const'].length == 1) {
+                            schema['const'] = schema['const'][0];
+                        } else {
+                            schema['enum'] = schema['const'];
+                            delete schema['const'];
+                        }
                     }
                     break;
                 case 'required':
@@ -100,6 +125,12 @@ export class Schema {
                     if (schema[prop] < schema1[prop]) {
                         schema[prop] = schema1[prop];
                     }
+                case 'if':
+                case 'then':
+                case 'else':
+                case 'anyOf':
+                case 'allOf':
+                    break;
                 default:
                     if (schema[prop] && schema[prop] != schema1[prop])
                         return null;
