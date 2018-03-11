@@ -10,7 +10,7 @@ import { FormGroup } from '@angular/forms';
 export class AppComponent {
   title = 'app';
 
-  schema: object = {
+  schema2: object = {
     title: "Test Conditional",
     type: "object",
     properties: {
@@ -69,7 +69,7 @@ export class AppComponent {
       }
     }]
   };
-  schema2: object = {
+  schema: object = {
     title: "Contact Details",
     type: "object",
     required: ['personTitle', 'firstName', 'surname'],
@@ -99,11 +99,11 @@ export class AppComponent {
           properties: {
             line1: {
               type: "string",
-              title: "Address Line 1"
+              title: "Address 1"
             },
             line2: {
               type: "string",
-              title: "Address Line 2"
+              title: "Address 2"
             },
             townCity: {
               type: "string",
