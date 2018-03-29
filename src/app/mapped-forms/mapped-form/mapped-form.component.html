@@ -1,0 +1,9 @@
+<form (ngSubmit)="submit()" [formGroup]="form" class="mapped-form">
+  <ng-container [ngSwitch]="form.schema.type">
+      <app-mapped-form-group *ngSwitchCase="'object'" [form]="form"></app-mapped-form-group>
+      <app-mapped-form-array *ngSwitchCase="'array'" [form]="form.get('arr')"></app-mapped-form-array>
+  </ng-container>
+  <div class="form-row">
+      <button type="submit" [disabled]="!form.valid">Save</button>
+    </div>
+</form>

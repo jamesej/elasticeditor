@@ -7,8 +7,15 @@ export class SchemaForm {
     constructor(public schema: object) {
     }
 
-    asFormGroup(value: object) {
-        return this.convertObjectSchema(this.schema, "", value);
+    asRoot(value: object): MappedFormGroup {
+        switch (this.schema['type']) {
+            case "object":
+                return this.convertObjectSchema(this.schema, "", value);
+            case "array":
+                let arr = this.convertArraySchema(this.schema, "", value);
+                return new MappedFormGroup( { arr: arr }, this.schema, "");
+        }
+        return null;
     }
 
     convertSchema(schema: object, path: string, value: object, required: string[] = []): AbstractControl {

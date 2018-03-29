@@ -10,6 +10,23 @@ import { FormGroup } from '@angular/forms';
 export class AppComponent {
   title = 'app';
 
+  schema: object = {
+    title: 'List',
+    type: "array",
+    format: "table",
+    items: {
+      type: "object",
+      properties: {
+        propA: {
+          type: "string"
+        },
+        propB: {
+          type: "string"
+        }
+      }
+    }
+  };
+
   schema2: object = {
     title: "Test Conditional",
     type: "object",
@@ -69,7 +86,7 @@ export class AppComponent {
       }
     }]
   };
-  schema: object = {
+  schema3: object = {
     title: "Contact Details",
     type: "object",
     required: ['personTitle', 'firstName', 'surname'],
@@ -120,5 +137,5 @@ export class AppComponent {
     }
   }
 
-  value: object = {}
+  value: object = [ { propA: "abc", propB: "def" } ];
 }

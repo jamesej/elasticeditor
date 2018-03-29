@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MappedFormGroup } from '../mapped-forms';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { MappedFormGroup, MappedFormArray } from '../mapped-forms';
 import { SchemaForm } from '../schema-form';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -11,6 +11,7 @@ import { ChangeDetectorRef } from '@angular/core';
 export class MappedFormComponent implements OnInit {
   @Input() value: object = {};
   @Input() schema: object = {};
+  @Output() onSubmit = new EventEmitter<object>();
 
   form: MappedFormGroup;
 
@@ -19,11 +20,12 @@ export class MappedFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.form = new SchemaForm(this.schema).asFormGroup(this.value);
+    this.form = new SchemaForm(this.schema).asRoot(this.value);
   }
 
-  onSubmit() {
+  submit() {
     console.log(JSON.stringify(this.form.value));
+    this.onSubmit.emit(this.form.value);
   }
 
   redraw() {

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MappedFormControl, MappedFormGroup, MappedFormArray } from '../mapped-forms';
-import { PACKAGE_ROOT_URL } from '@angular/core/src/application_tokens';
 
 @Component({
   selector: 'app-mapped-form-array',
@@ -30,6 +29,10 @@ export class MappedFormArrayComponent implements OnInit {
     return "";
   }
 
+  get isTable(): boolean {
+    return (this.schema['format'] && this.schema['format'] == 'table');
+  }
+
   add() {
     this.form.push(this.form.createItem(null, this.form.controls.length));
   }
@@ -43,9 +46,6 @@ export class MappedFormArrayComponent implements OnInit {
     this.form.removeAt(pos);
     this.form.at(pos - 1)['path'] = movePath;
     this.form.insert(pos - 1, moveControl);
-    // let currVal = this.form.at(pos).value;
-    // this.form.at(pos).setValue(this.form.at(pos - 1).value);
-    // this.form.at(pos - 1).setValue(currVal);
   }
 
   down(pos: number) {
@@ -57,9 +57,6 @@ export class MappedFormArrayComponent implements OnInit {
       this.form.removeAt(pos);
       this.form.at(pos)['path'] = movePath;
       this.form.insert(pos + 1, moveControl);
-    // let currVal = this.form.at(pos).value;
-    // this.form.at(pos).setValue(this.form.at(pos + 1).value);
-    // this.form.at(pos + 1).setValue(currVal);
   }
   
   delete(pos: number) {

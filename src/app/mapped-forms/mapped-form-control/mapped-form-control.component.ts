@@ -10,6 +10,7 @@ import { MappedFormArray, MappedFormGroup, MappedFormControl } from '../mapped-f
 export class MappedFormControlComponent implements OnInit {
   @Input() form: FormGroup | FormArray;
   @Input() key: string;
+  @Input() hideLabel: boolean = false;
 
   schema: object;
 

@@ -1,5 +1,5 @@
 <div class="form-group row" [formGroup]="form">
-    <label [attr.for]="control.path" class="col-sm-3 col-form-label">{{title}}</label>
+    <label *ngIf="!hideLabel" [attr.for]="control.path" class="col-sm-3 col-form-label">{{title}}</label>
    
     <div class="col-sm-9" [ngSwitch]="controlType" [id]="control.id">
    
