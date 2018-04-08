@@ -1,7 +1,7 @@
 import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[custom-editor]',
+  selector: '[customEditor]'
 })
 export class CustomEditorDirective {
   constructor(public viewContainerRef: ViewContainerRef) { }

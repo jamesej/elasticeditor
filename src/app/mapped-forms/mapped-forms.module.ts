@@ -14,6 +14,8 @@ import { MappedFormArrayComponent } from './mapped-form-array/mapped-form-array.
 import { CustomEditorSource } from './custom-editor-source';
 import { MappedFormControlBase } from './mapped-form-control-base';
 
+import { CustomEditorDirective } from './custom-editor.directive';
+
 export { CustomEditorSource } from './custom-editor-source';
 export { MappedFormControlBase } from './mapped-form-control-base';
 export { MappedFormArray, MappedFormControl, MappedFormGroup } from './mapped-forms';
@@ -26,7 +28,8 @@ export { MappedFormArray, MappedFormControl, MappedFormGroup } from './mapped-fo
     KeysPipe,
     MappedFormArrayComponent,
     MappedFormTableComponent,
-    MappedFormControlBase
+    MappedFormControlBase,
+    CustomEditorDirective
   ],
   imports: [
     BrowserModule, ReactiveFormsModule

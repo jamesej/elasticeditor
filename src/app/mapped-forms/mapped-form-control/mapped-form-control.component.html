@@ -1,3 +1,4 @@
+<ng-template *ngIf="isCustom" customEditor></ng-template>
 <div *ngIf="!isCustom" class="form-group row" [formGroup]="form">
     <label *ngIf="!hideLabel" [attr.for]="control.path" class="col-sm-3 col-form-label">{{title}}</label>
    
@@ -39,4 +40,3 @@
       </div>
     </div>
 </div>
-<ng-template *ngIf="isCustom" custom-editor></ng-template>

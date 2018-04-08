@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MappedFormsModule, CustomEditorSource } from './mapped-forms/mapped-forms.module';
 import { DataElasticModule } from './data-elastic/data-elastic.module';
-import { FormEditorCatalogueModule } from './form-editor-catalogue/form-editor-catalogue.module';
+import { FormEditorCatalogueModule, BooleanSwitchComponent } from './form-editor-catalogue/form-editor-catalogue.module';
+import { AppEditorSource } from './app-editor-source';
 
 import { AppComponent } from './app.component';
 
@@ -18,8 +19,9 @@ import { AppComponent } from './app.component';
     FormEditorCatalogueModule
   ],
   providers: [
-    CustomEditorSource
+    { provide: CustomEditorSource, useClass: AppEditorSource }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ BooleanSwitchComponent ]
 })
 export class AppModule { }
