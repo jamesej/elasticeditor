@@ -1,0 +1,14 @@
+<div class="form-group row" [formGroup]="form">
+    <label *ngIf="!hideLabel" [attr.for]="control.path" class="col-sm-3 col-form-label">{{title}}</label>
+   
+    <div class="col-sm-9" [id]="control.id">
+   
+      <div class="boolean-switch">
+        <input style="display: none"
+          [formControlName]="key" [id]="control.path" type="checkbox">
+        <div>Yes</div>
+        <div>No</div>
+      </div>
+
+    </div>
+</div>

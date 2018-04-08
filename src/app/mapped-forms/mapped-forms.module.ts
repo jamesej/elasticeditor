@@ -11,7 +11,12 @@ import { KeysPipe } from './keys.pipe';
 
 import { MappedFormGroup, MappedFormControl } from './mapped-forms';
 import { MappedFormArrayComponent } from './mapped-form-array/mapped-form-array.component';
+import { CustomEditorSource } from './custom-editor-source';
+import { MappedFormControlBase } from './mapped-form-control-base';
 
+export { CustomEditorSource } from './custom-editor-source';
+export { MappedFormControlBase } from './mapped-form-control-base';
+export { MappedFormArray, MappedFormControl, MappedFormGroup } from './mapped-forms';
 
 @NgModule({
   declarations: [
@@ -20,13 +25,14 @@ import { MappedFormArrayComponent } from './mapped-form-array/mapped-form-array.
     MappedFormControlComponent,
     KeysPipe,
     MappedFormArrayComponent,
-    MappedFormTableComponent
+    MappedFormTableComponent,
+    MappedFormControlBase
   ],
   imports: [
     BrowserModule, ReactiveFormsModule
   ],
   exports: [
-      MappedFormComponent
+      MappedFormComponent, MappedFormControlBase
   ]
 })
 export class MappedFormsModule { }

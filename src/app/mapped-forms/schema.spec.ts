@@ -102,3 +102,97 @@ describe('schema conjoin', () => {
         expect(conj['properties']['propArr']['items']['properties']['propArrA']['type']).toBe('string');
     })
 });
+
+describe("asFieldMap", () => {
+    it("minimal", () => {
+        let schema = {
+            type: 'string'
+        };
+        let fm = new Schema(schema).asFieldMap();
+        expect(fm['type']).toBe('string');
+    });
+    it("maximal", () => {
+        let schema = {
+            type: 'object',
+            properties: {
+                a: {
+                    type: 'string'
+                },
+                b: {
+                    type: 'object',
+                    properties: {
+                        a1: {
+                            type: 'number'
+                        },
+                    },
+                    if: {},
+                    then: {
+                        type: 'object',
+                        properties: {
+                            a1: {
+                                type: 'number'
+                            },
+                            ax: {
+                                type: 'string'
+                            }
+                        }
+                    }
+                },
+                c: {
+                    type: 'array',
+                    items: {
+                        type: 'object',
+                        properties: {
+                            c1: {
+                                type: 'string',
+                                format: 'datetime'
+                            }
+                        },
+                        allOf: [
+                            {
+                                type: 'object',
+                                properties: {
+                                    c2x: {
+                                        type: 'number'
+                                    }
+                                }
+                            },
+                            {
+                                type: 'object',
+                                properties: {
+                                    c3x: {
+                                        type: 'string'
+                                    },
+                                    c4x: {
+                                        type: 'string'
+                                    }
+                                },
+                                if: {},
+                                else: {
+                                    type: 'object',
+                                    properties: {
+                                        c5x: {
+                                            type: 'string'
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        };
+        let fm = new Schema(schema).asFieldMap();
+        expect(fm['type']).toBe('object');
+        expect(fm['properties']['a']['type']).toBe('string');
+        expect(fm['properties']['c']['type']).toBe('array');
+        let fmB = fm['properties']['b'];
+        expect(fmB['properties']['ax']['type']).toBe('string');
+        let fmC = fm['properties']['c']['items'];
+        let fmCiProps = [];
+        for (let prop in fmC['properties']) {
+            fmCiProps.push(prop);
+        }
+        expect(fmCiProps.length).toBe(5);
+    })
+});

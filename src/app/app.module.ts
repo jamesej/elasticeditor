@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MappedFormsModule } from './mapped-forms/mapped-forms.module';
+import { MappedFormsModule, CustomEditorSource } from './mapped-forms/mapped-forms.module';
+import { DataElasticModule } from './data-elastic/data-elastic.module';
+import { FormEditorCatalogueModule } from './form-editor-catalogue/form-editor-catalogue.module';
 
 import { AppComponent } from './app.component';
 
@@ -11,9 +13,13 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule, ReactiveFormsModule, MappedFormsModule
+    BrowserModule, ReactiveFormsModule, MappedFormsModule,
+    DataElasticModule.forRoot(),
+    FormEditorCatalogueModule
   ],
-  providers: [],
+  providers: [
+    CustomEditorSource
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

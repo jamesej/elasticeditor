@@ -1,4 +1,4 @@
-<div class="form-group row" [formGroup]="form">
+<div *ngIf="!isCustom" class="form-group row" [formGroup]="form">
     <label *ngIf="!hideLabel" [attr.for]="control.path" class="col-sm-3 col-form-label">{{title}}</label>
    
     <div class="col-sm-9" [ngSwitch]="controlType" [id]="control.id">
@@ -17,6 +17,8 @@
         [formControlName]="key" [id]="control.path" type="date">
       <input *ngSwitchCase="'email'" [ngClass]="'form-control ' + classes"
         [formControlName]="key" [id]="control.path" type="email">
+      <input *ngSwitchCase="'hidden'" [ngClass]="'form-control ' + classes"
+        [formControlName]="key" [id]="control.path" type="hidden">
       <select *ngSwitchCase="'enum'" [ngClass]="'form-control fixed-enum ' + classes"
         [formControlName]="key" [id]="control.path">
         <option *ngFor="let val of schema.enum" [value]="val">{{val}}</option>
@@ -36,4 +38,5 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
+<ng-template *ngIf="isCustom" custom-editor></ng-template>

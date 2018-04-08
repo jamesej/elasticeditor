@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ElasticDataEngine } from './data-elastic/elastic-data-engine';
 
 
 @Component({
@@ -8,9 +9,15 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(public data: ElasticDataEngine) {
+
+  }
+
+
+
   title = 'app';
 
-  schema: object = {
+  schema2: object = {
     title: 'List',
     type: "array",
     format: "table",
@@ -27,12 +34,13 @@ export class AppComponent {
     }
   };
 
-  schema2: object = {
+  schema: object = {
     title: "Test Conditional",
     type: "object",
     properties: {
       switch1: {
-        type: "boolean"
+        type: "boolean",
+        editor: "boolean-switch"
       },
       switch2: {
         type: "string",

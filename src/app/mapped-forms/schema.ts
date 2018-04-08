@@ -4,6 +4,27 @@ export class Schema {
     constructor(public schemaObject: object) {
     }
 
+    get fieldType(): string {
+        let type = this.schemaObject['type'];
+        if (this.schemaObject['format'])
+          type += " " + this.schemaObject['format'];
+        if (this.schemaObject['enum'])
+          type = "enum";
+        if (this.schemaObject['hidden'])
+          type = "hidden";
+        if (this.schemaObject['editor'])
+          type = this.schemaObject['editor'];
+        switch (type) {
+          case "string date-time":
+          case "string date":
+          case "string time":
+          case "string email":
+            return this.schemaObject['format'];
+          default:
+            return type;
+        }
+      }
+
     // manipulate the schema to allow any optional property to have a null value
     // which is appropriate for form input
     nullOptionalsAllowed(): object {
@@ -244,6 +265,53 @@ export class Schema {
 
         return schema;
     }
+
+    public asFieldMap(): object {
+        return this.fieldUnion(this.schemaObject);
+    }
+
+    private fieldUnion(schema: object): object {
+        if (!schema['type'])
+            throw "object not well-formed schema in fieldUnion, no type field";
+        schema = this.expandConditionals(schema);
+        let s = new Schema(schema);
+        let union = {
+            type: s.fieldType
+        };
+        switch (schema['type']) {
+            case "object":
+                let props = schema['properties'];
+                for (let field in props) {
+                    union[field] = this.fieldUnion(props[field]);
+                }
+                break;
+            case "array":
+                union['items'] = this.fieldUnion(schema['items']);
+                break;
+        }
+        return union;
+    }
+
+    private expandConditionals(schema: object): object {
+        let conditionalParts = [];
+        if (schema['then']) {
+            conditionalParts.push(schema['then']);
+        }
+        if (schema['else']) {
+            conditionalParts.push(schema['else']);
+        }
+        if (schema['anyOf']) {
+            conditionalParts = conditionalParts.concat(schema['anyOf']);
+        }
+        if (schema['allOf']) {
+            conditionalParts = conditionalParts.concat(schema['allOf']);
+        }
+        for (let subSchema of conditionalParts) {
+            schema = this.conjoinFunc(schema, this.expandConditionals(subSchema));
+        }
+        return schema;
+    }
+    
 
     public static intersection<T>(arr0: T[], arr1: T[]): T[] {
         let output = new Array<T>();
