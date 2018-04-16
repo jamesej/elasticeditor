@@ -1,24 +1,20 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { MappedFormComponent } from './mapped-forms/mapped-form/mapped-form.component';
-import { MappedFormGroupComponent } from './mapped-forms/mapped-form-group/mapped-form-group.component';
-import { MappedFormControlComponent } from './mapped-forms/mapped-form-control/mapped-form-control.component';
-import { MappedFormArrayComponent } from './mapped-forms/mapped-form-array/mapped-form-array.component';
-import { KeysPipe } from './mapped-forms/keys.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MappedFormsModule } from './mapped-forms/mapped-forms.module';
+import { DataElasticModule } from './data-elastic/data-elastic.module';
+import { CustomEditorSource } from './mapped-forms/custom-editor-source';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent,
-        MappedFormGroupComponent,
-        MappedFormComponent,
-        MappedFormControlComponent,
-        KeysPipe,
-        MappedFormArrayComponent
+        AppComponent
       ],
-      imports: [ ReactiveFormsModule ]
+      imports: [ ReactiveFormsModule, MappedFormsModule, DataElasticModule.forRoot() ],
+      providers: [
+        CustomEditorSource
+      ]
     }).compileComponents();
   }));
   it('should create the app', async(() => {

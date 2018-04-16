@@ -1,0 +1,20 @@
+.boolean-switch div {
+    float: left;
+    width: 49%;
+    text-align: center;
+    background-color: #444;
+    height: 36px;
+    padding: 4px;
+    color:#888;
+    cursor: pointer;
+}
+
+.boolean-switch div:last-child {
+    margin-left: 2%;
+}
+
+.boolean-switch div.selected {
+    background-color: #ddd;
+    color: #222;
+    text-decoration: underline;
+}

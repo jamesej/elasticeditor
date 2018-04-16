@@ -8,5 +8,11 @@ import { MappedFormControlBase } from '../../mapped-forms/mapped-forms.module';
   styleUrls: ['./boolean-switch.component.css']
 })
 export class BooleanSwitchComponent extends MappedFormControlBase {
+  get isTrue(): boolean {
+    return <boolean>this.control.value;
+  }
 
+  setValue(val: boolean) {
+    this.control.setValue(val);
+  }
 }

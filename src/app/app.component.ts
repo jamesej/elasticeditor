@@ -13,11 +13,13 @@ export class AppComponent {
 
   }
 
-
+  showVal(event) {
+    alert(JSON.stringify(event));
+  }
 
   title = 'app';
 
-  schema2: object = {
+  schema: object = {
     title: 'List',
     type: "array",
     format: "table",
@@ -34,7 +36,7 @@ export class AppComponent {
     }
   };
 
-  schema: object = {
+  schema3: object = {
     title: "Test Conditional",
     type: "object",
     properties: {
@@ -94,7 +96,7 @@ export class AppComponent {
       }
     }]
   };
-  schema3: object = {
+  schema2: object = {
     title: "Contact Details",
     type: "object",
     required: ['personTitle', 'firstName', 'surname'],

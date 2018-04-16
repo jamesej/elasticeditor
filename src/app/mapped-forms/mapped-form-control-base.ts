@@ -6,18 +6,40 @@ import { MappedFormArray, MappedFormGroup, MappedFormControl } from './mapped-fo
     selector: 'app-mapped-form-control-base',
     template: ''
 })
-export class MappedFormControlBase implements OnInit {
-    @Input() form: FormGroup | FormArray;
-    @Input() key: string;
+export class MappedFormControlBase {
+    private _form: FormGroup | FormArray;
+    private _key: string;
+    
+    @Input()
+    public set key(k: string) {
+        this._key = k;
+        this.setSchema();
+    }
+    public get key() {
+        return this._key;
+    }
 
-    public schema: object;
+    public schema: object = null;
 
-    ngOnInit() {
-        if (!!this.form['at']) {
-            this.schema = (<MappedFormArray>this.form).schema['items'];
-        } else {
-            this.schema = (<MappedFormGroup>this.form.get(this.key)).schema;
+    @Input()
+    public set form(fm: FormGroup | FormArray) {
+        this._form = fm;
+        this.setSchema();
+    }
+    public get form(): FormGroup | FormArray {
+        return this._form;
+    }
+
+    protected setSchema(): boolean {
+        let doSet: boolean = (!this.schema && ((!!this._form) && (!!this._key)));
+        if (doSet) {
+            if (!!this._form['at']) {
+                this.schema = (<MappedFormArray>this._form).schema['items'];
+            } else {
+                this.schema = (<MappedFormGroup>this._form.get(this.key)).schema;
+            }
         }
+        return doSet;
     }
 
     get control(): MappedFormControl {

@@ -5,6 +5,8 @@ import { MappedFormsModule, CustomEditorSource } from './mapped-forms/mapped-for
 import { DataElasticModule } from './data-elastic/data-elastic.module';
 import { FormEditorCatalogueModule, BooleanSwitchComponent } from './form-editor-catalogue/form-editor-catalogue.module';
 import { AppEditorSource } from './app-editor-source';
+import { AppSchemaSource } from './app-schema-source';
+import { SchemaSource } from './data-abstractions/schema-source'
 
 import { AppComponent } from './app.component';
 
@@ -19,7 +21,8 @@ import { AppComponent } from './app.component';
     FormEditorCatalogueModule
   ],
   providers: [
-    { provide: CustomEditorSource, useClass: AppEditorSource }
+    { provide: CustomEditorSource, useClass: AppEditorSource },
+    { provide: SchemaSource, useClass: AppSchemaSource }
   ],
   bootstrap: [AppComponent],
   entryComponents: [ BooleanSwitchComponent ]

@@ -109,7 +109,7 @@ describe("asFieldMap", () => {
             type: 'string'
         };
         let fm = new Schema(schema).asFieldMap();
-        expect(fm['type']).toBe('string');
+        expect(fm['$type']).toBe('string');
     });
     it("maximal", () => {
         let schema = {
@@ -183,16 +183,16 @@ describe("asFieldMap", () => {
             }
         };
         let fm = new Schema(schema).asFieldMap();
-        expect(fm['type']).toBe('object');
-        expect(fm['properties']['a']['type']).toBe('string');
-        expect(fm['properties']['c']['type']).toBe('array');
-        let fmB = fm['properties']['b'];
-        expect(fmB['properties']['ax']['type']).toBe('string');
-        let fmC = fm['properties']['c']['items'];
+        expect(fm['$type']).toBe('object');
+        expect(fm['a']['$type']).toBe('string');
+        expect(fm['c']['$type']).toBe('array');
+        let fmB = fm['b'];
+        expect(fmB['ax']['$type']).toBe('string');
+        let fmC = fm['c']['$items'];
         let fmCiProps = [];
-        for (let prop in fmC['properties']) {
+        for (let prop in fmC) {
             fmCiProps.push(prop);
         }
-        expect(fmCiProps.length).toBe(5);
+        expect(fmCiProps.length).toBe(6);
     })
 });

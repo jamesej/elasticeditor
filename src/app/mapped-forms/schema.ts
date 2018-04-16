@@ -276,7 +276,7 @@ export class Schema {
         schema = this.expandConditionals(schema);
         let s = new Schema(schema);
         let union = {
-            type: s.fieldType
+            '$type': s.fieldType
         };
         switch (schema['type']) {
             case "object":
@@ -286,7 +286,7 @@ export class Schema {
                 }
                 break;
             case "array":
-                union['items'] = this.fieldUnion(schema['items']);
+                union['$items'] = this.fieldUnion(schema['items']);
                 break;
         }
         return union;

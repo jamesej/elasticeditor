@@ -1,6 +1,6 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div>
-  <app-mapped-form [schema]="schema" [value]="value"></app-mapped-form>
+  <app-mapped-form [schema]="schema" [value]="value" (onSubmit)="showVal($event)"></app-mapped-form>
   <button (click)="data.ensureIndex()">Test</button>
 </div>
 
